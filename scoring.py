@@ -20,7 +20,6 @@ def init():
     
     global logger
     global model
-    global inference_batch_size
    
     logger = EntryScript().logger
     logger.info("==> scoring.py init()")
@@ -34,7 +33,6 @@ def init():
     images_scored_folder = args.images_scored_folder
     model_name = args.model_name
     model_version = args.model_version
-    inference_batch_size = args.inference_batch_size
     print("images_scored_folder:", images_scored_folder)
     print("model_name:", model_name)
     print("model_version:", model_version)
