@@ -21,8 +21,8 @@ def init():
     parser = argparse.ArgumentParser()
     parser.add_argument('--images-pre-processed-folder', type=str, dest='images_pre_processed_folder', help='images pre processed folder')
     args, unknown_args = parser.parse_known_args()
-    images_pre_processed_folder = args.images_scored_folder
-    print("images_pre_processed_folder:", images_tiled_scored_folder) # this is where the output of this step will be stored, at this stage to this code, it is just a system path you can write into
+    images_pre_processed_folder = args.images_pre_processed_folder
+    print("images_pre_processed_folder:", images_pre_processed_folder) # this is where the output of this step will be stored, at this stage to this code, it is just a system path you can write into
     
 # run(): called multiple times until we run out of batches to process
 def run(mini_batch):
