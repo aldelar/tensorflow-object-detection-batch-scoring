@@ -88,11 +88,11 @@ def score_batch(images_paths):
         images.append(np.expand_dims(Image.open(image_path), axis=0))
     images_scored = model.predict_on_batch(images)
     # save the outputs
-    for i in range(len(images_scored)):
-        output_array = np.squeeze(image_scored[i])
+'''    for i in range(len(images_scored)):
+        output_array = np.squeeze(images_scored[i])
         im_out = Image.fromarray(output_mask)
-        im_out.save(image_tile_scored_file_paths[i],'PNG')
-            current_batch_size = 0
+        #im_out.save(image_tile_scored_file_paths[i],'PNG')
+'''    
     image_paths.clear() # reset batch
 
 #
