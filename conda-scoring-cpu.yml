@@ -12,4 +12,3 @@ dependencies:
   - azureml-train-core==1.10.0
   - numpy
   - Pillow
-  - tensorflow-gpu==1.15.3
