@@ -68,13 +68,14 @@ def run(mini_batch):
     current_batch_size = 0
     for image_path in mini_batch:
         image_name = os.path.basename(image_path)
-        results.append(image_name) # metadata to just indicate which image we are processing
-        # loading up the inference batch
-        images_paths.append(image_path)
-        current_batch_size = current_batch_size + 1
-        if current_batch_size == inference_batch_size:
-            # score batch
-            images_scored = score_batch(images_paths)
+        if os.path.splitext(image_name)[1] != '.csv':
+            results.append(image_name) # metadata to just indicate which image we are processing
+            # loading up the inference batch
+            images_paths.append(image_path)
+            current_batch_size = current_batch_size + 1
+            if current_batch_size == inference_batch_size:
+                # score batch
+                images_scored = score_batch(images_paths)
     # score remaming images if any
     if current_batch_size > 0:
         score_batch(images_paths)
