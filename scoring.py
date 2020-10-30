@@ -35,11 +35,11 @@ def init():
     images_scored_folder = args.images_scored_folder
     model_name = args.model_name
     model_version = args.model_version
-    inference_batch_size = args.batch_size
-    print("images_scored_folder:", images_tiled_scored_folder)
+    inference_batch_size = args.inference_batch_size
+    print("images_scored_folder:", images_scored_folder)
     print("model_name:", model_name)
     print("model_version:", model_version)
-    print("inference)batch_size:", inference_batch_size)
+    print("inference_batch_size:", inference_batch_size)
 
     run = Run.get_context()
     run.log('model_name',model_name)
@@ -88,11 +88,6 @@ def score_batch(images_paths):
         images.append(np.expand_dims(Image.open(image_path), axis=0))
     images_scored = model.predict_on_batch(images)
     # save the outputs
-'''    for i in range(len(images_scored)):
-        output_array = np.squeeze(images_scored[i])
-        im_out = Image.fromarray(output_mask)
-        #im_out.save(image_tile_scored_file_paths[i],'PNG')
-'''    
     image_paths.clear() # reset batch
 
 #

@@ -32,7 +32,7 @@ def run(mini_batch):
         try:
             image_name = os.path.basename(image_path)
             image = Image.open(image_path)
-            image.save(os.join(images_pre_processed_folder,image_name),'PNG')
+            image.save(os.path.join(images_pre_processed_folder,image_name),'PNG')
             # success, we flag it as valid in the generated metadata, and save it to our output for the next step
             results.append("valid,"+image_name)
         except Exception as e:
