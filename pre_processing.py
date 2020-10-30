@@ -1,6 +1,8 @@
 from azureml_user.parallel_run import EntryScript
 from azureml.core.run import Run
 
+import os,argparse
+
 from PIL import ImageFile, Image
 
 # ===============
