@@ -2,7 +2,7 @@ from azureml_user.parallel_run import EntryScript
 from azureml.core.run import Run
 from azureml.core import Model
 
-import os,argparse
+import os,argparse,json
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import load_model
@@ -20,6 +20,7 @@ def init():
     
     global logger
     global model
+    global images_scored_folder
    
     logger = EntryScript().logger
     logger.info("==> scoring.py init()")
@@ -53,21 +54,29 @@ def load_model_from_registry(model_name,model_version):
     workspace = Run.get_context().experiment.workspace
     aml_model = Model(workspace, name=model_name, version=model_version)
     model_path = aml_model.download(target_dir='./outputs',exist_ok=True)
-    return load_model(model_path, custom_objects={'relu6': tf.nn.relu6,'tf': tf})
+    return init_load(model_path)
 
 # process each batch of images
-# NOTE: that here, we also have an 'inference batch size' *how many images do we send to the GPU at once), which can be independently controlled from the ParallelRunStep batch size. Obviously, the Step bacth size should be bigger than the inference batch size
 def run(mini_batch):
     results = []
     for image_path in mini_batch:
         image_name = os.path.basename(image_path)
-        if os.path.splitext(image_name)[1] != '.csv':
-            detection = detect(image_path)
-            # TODO: save detection
+        image_name_base, image_name_extension = os.path.splitext(image_name)
+        if image_name_extension != '.csv':
+            detection = run_detect(image_path)
+            f = open(os.path.join(images_scored_folder,image_name_base+'.json'),"w")
+            f.write(json.dumps(detection))
+            f.close()
             results.append(image_name) # metadata to just indicate which image we are processing
-    # score remaming images if any
     return results
 
 #
-def detect(image_path):
+# insert your custom model load code here
+def init_load(model_path):
+    return load_model(model_path, custom_objects={'relu6': tf.nn.relu6,'tf': tf})
+
+# insert your custom detection code here
+def run_detect(image_path):
     print(f"       > detect({image_path})",flush=True)
+    # insert detection code here and return detection results
+    return { "detection": "None" }
