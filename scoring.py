@@ -72,10 +72,13 @@ def run(mini_batch):
 
 #
 # insert your custom model load code here
+#
 def init_load(model_path):
     return load_model(model_path, custom_objects={'relu6': tf.nn.relu6,'tf': tf})
 
+#
 # insert your custom detection code here
+#
 def run_detect(image_path):
     print(f"       > detect({image_path})",flush=True)
     # insert detection code here and return detection results
