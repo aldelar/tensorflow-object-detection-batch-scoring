@@ -1,5 +1,6 @@
 # Azure ML
 scoring_runtime
+.ipynb_aml_checkpoints
 
 # Visual Studio Code
 .vscode
