@@ -4,6 +4,7 @@ from azureml.core.run import Run
 import os,argparse
 
 from PIL import ImageFile, Image
+import piexif
 
 # ===============
 # ParallelRunStep: this script needs to implement a simple API that consists of two functions: init() and run()
@@ -30,9 +31,17 @@ def run(mini_batch):
     for image_path in mini_batch:
         # simple pre-processing: we just try to read the file as an image to see if it is an image
         try:
+
+            # resizing code
+            height=1499
+            width=2000
             image_name = os.path.basename(image_path)
             image = Image.open(image_path)
-            image.save(os.path.join(images_pre_processed_folder,image_name),'PNG')
+            exif_dict = piexif.load(image.info["exif"])
+            exif_bytes = piexif.dump(exif_dict)
+            resized_image = image.resize((height, width), Image.ANTIALIAS)
+            resized_image.save(os.path.join(images_pre_processed_folder,image_name),format='JPEG',exif=exif_bytes)
+
             # success, we flag it as valid in the generated metadata, and save it to our output for the next step
             results.append("valid,"+image_name)
         except Exception as e:

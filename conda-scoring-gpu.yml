@@ -2,14 +2,14 @@ channels:
 - conda-forge
 dependencies:
 - pip=20.2.4
-- python=3.6.11
+- python=3.7
 - pip:
-  - azureml-core==1.10.0
-  - azureml-dataprep[fuse]==2.0.2
-  - azureml-defaults==1.10.0
-  - azureml-telemetry==1.10.0
-  - azureml-train-restclients-hyperdrive==1.10.0
-  - azureml-train-core==1.10.0
-  - numpy==1.19.3
-  - Pillow==8.0.1
+  - azureml-core
+  - azureml-dataprep[fuse]
+  - azureml-defaults
+  - azureml-telemetry
+  - azureml-train-restclients-hyperdrive
+  - azureml-train-core
+  - numpy
+  - Pillow
   - tensorflow-gpu==1.15.3
